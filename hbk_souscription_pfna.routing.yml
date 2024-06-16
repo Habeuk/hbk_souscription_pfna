@@ -1,0 +1,7 @@
+hbk_souscription_pfna.souscription:
+  path: '/hbk-souscription-pfna/souscription/{id_offre}'
+  defaults:
+    _title: 'Souscription à une offre'
+    _controller: '\Drupal\hbk_souscription_pfna\Controller\HbkSouscriptionPfnaController'
+  requirements:
+    _permission: 'access content'

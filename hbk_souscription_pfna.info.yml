@@ -1,0 +1,5 @@
+name: 'hbk_souscription_pfna'
+type: module
+description: 'permet de gerer les souscriptions sur la plateforme-nouveauarrivants'
+package: Custom
+core_version_requirement: ^10 || ^11

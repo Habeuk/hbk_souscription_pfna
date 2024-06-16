@@ -1,0 +1,17 @@
+<?php
+
+/**
+ *
+ * @file
+ * Primary module hooks for hbk_souscription_pfna module.
+ */
+
+/**
+ *
+ * @param array $variables
+ */
+function hbk_souscription_pfna_preprocess_region__content(&$vars) {
+  if (\Drupal::routeMatch()->getRouteName() == 'hbk_souscription_pfna.souscription') {
+    $vars['attributes']['class'][] = 'container';
+  }
+}

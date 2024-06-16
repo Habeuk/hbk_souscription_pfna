@@ -1,0 +1,14 @@
+{
+    "name": "stephane/hbk_souscription_pfna",
+    "description": "custom module",
+    "type": "drupal-custom-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "kouwa stephane",
+            "email": "kksasteph888@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
