@@ -1,5 +1,5 @@
 {
-    "name": "stephane/hbk_souscription_pfna",
+    "name": "habeuk/hbk_souscription_pfna",
     "description": "custom module",
     "type": "drupal-custom-module",
     "license": "MIT",
