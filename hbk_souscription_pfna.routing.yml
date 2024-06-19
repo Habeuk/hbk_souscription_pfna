@@ -5,3 +5,11 @@ hbk_souscription_pfna.souscription:
     _controller: '\Drupal\hbk_souscription_pfna\Controller\HbkSouscriptionPfnaController'
   requirements:
     _permission: 'access content'
+    
+hbk_souscription_pfna.mysouscriptions:
+  path: '/user/{user}/hbk-souscription-pfna/souscriptions'
+  defaults:
+    _title: 'Mes souscriptions'
+    _controller: '\Drupal\hbk_souscription_pfna\Controller\HbkSouscriptionPfnaController::MySouscriptions'
+  requirements:
+    _user_is_logged_in: 'TRUE'

@@ -1,0 +1,5 @@
+hbk_souscription_pfna.mysouscriptions:
+  route_name: hbk_souscription_pfna.mysouscriptions
+  base_route: entity.user.canonical
+  title: 'Mes souscriptions'
+  weight: 15

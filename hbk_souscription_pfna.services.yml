@@ -2,3 +2,10 @@ services:
   logger.channel.hbk_souscription_pfna:
     parent: logger.channel_base
     arguments: [ 'hbk_souscription_pfna' ]
+  hbk_souscription_pfna.collection_souscription:
+    class: Drupal\hbk_souscription_pfna\Services\CollectionSouscription
+    arguments: ['@logger.channel.hbk_souscription_pfna']
+  hbk_souscription_pfna.manage_souscription:
+    class: Drupal\hbk_souscription_pfna\Services\ManageSouscription
+    arguments: ['@logger.channel.hbk_souscription_pfna','@hbk_souscription_pfna.collection_souscription']
+  

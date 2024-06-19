@@ -14,4 +14,23 @@ function hbk_souscription_pfna_preprocess_region__content(&$vars) {
   if (\Drupal::routeMatch()->getRouteName() == 'hbk_souscription_pfna.souscription') {
     $vars['attributes']['class'][] = 'container';
   }
+  if (\Drupal::currentUser()->id() == 1) {
+    // hook_user_login();
+    // hook_user_logout();
+    // dump("ee");
+  }
 }
+
+/**
+ * Implement hook_user_login
+ */
+function hbk_souscription_pfna_user_login() {
+  $request = \Drupal::request();
+  /**
+   *
+   * @var \Drupal\hbk_souscription_pfna\Services\ManageSouscription $manage_souscription
+   */
+  $manage_souscription = \Drupal::service("hbk_souscription_pfna.manage_souscription");
+  $manage_souscription->afterLogin($request);
+}
+
