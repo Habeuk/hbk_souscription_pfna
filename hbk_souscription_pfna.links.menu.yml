@@ -1,0 +1,9 @@
+hbk_souscription_pfna.user.orders:
+  title: 'Mes commandes'
+  weight: 0
+  route_name: view.commerce_user_orders.order_page
+  class: Drupal\hbk_souscription_pfna\Plugin\Menu\OrdersMenuLink
+# definie dans la class car il doit etre dynamic.
+#  route_parameters: 
+#    user: entity.user.canonical
+  menu_name: account

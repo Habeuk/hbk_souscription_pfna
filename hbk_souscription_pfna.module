@@ -11,13 +11,20 @@
  * @param array $variables
  */
 function hbk_souscription_pfna_preprocess_region__content(&$vars) {
+  /**
+   *
+   * @var \Drupal\commerce_stock\AlwaysInStockService $always_in_stock_service
+   */
+  $always_in_stock_service = \Drupal::service("commerce_stock.always_in_stock_service");
+  // $always_in_stock_service->getStockChecker()->getIsAlwaysInStock($entity);
+  
   if (\Drupal::routeMatch()->getRouteName() == 'hbk_souscription_pfna.souscription') {
     $vars['attributes']['class'][] = 'container';
   }
   if (\Drupal::currentUser()->id() == 1) {
     // hook_user_login();
     // hook_user_logout();
-    // dump("ee");
+    // \Drupal::messenger()->addStatus("Test display message");
   }
 }
 
