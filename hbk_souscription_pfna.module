@@ -1,4 +1,7 @@
 <?php
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 
 /**
  *
@@ -7,17 +10,39 @@
  */
 
 /**
+ * Implement hook_entity_base_field_info
+ *
+ * @param EntityTypeInterface $entity_type
+ */
+function hbk_souscription_pfna_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+  if ($entity_type->id() == 'commerce_order') {
+    $fields['hbk_description_need'] = BaseFieldDefinition::create('text_long')->setLabel(" Description need ")->setDisplayOptions('form', [])->setDisplayOptions('view',
+      [
+        'label' => 'hidden',
+        'type' => 'text_default',
+        'weight' => 0
+      ])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true);
+    $fields['hbk_custom_profile'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Custom profile'))->setSetting('target_type', 'profile')->setSetting('handler', 'default')->setDisplayOptions(
+      'form', [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 5,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'size' => '60',
+          'autocomplete_type' => 'tags',
+          'placeholder' => ''
+        ]
+      ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setCardinality(1);
+  }
+  return $fields;
+}
+
+/**
  *
  * @param array $variables
  */
 function hbk_souscription_pfna_preprocess_region__content(&$vars) {
-  /**
-   *
-   * @var \Drupal\commerce_stock\AlwaysInStockService $always_in_stock_service
-   */
-  $always_in_stock_service = \Drupal::service("commerce_stock.always_in_stock_service");
-  // $always_in_stock_service->getStockChecker()->getIsAlwaysInStock($entity);
-  
   if (\Drupal::routeMatch()->getRouteName() == 'hbk_souscription_pfna.souscription') {
     $vars['attributes']['class'][] = 'container';
   }
