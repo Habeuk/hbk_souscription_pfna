@@ -17,12 +17,6 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
 function hbk_souscription_pfna_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];
   if ($entity_type->id() == 'commerce_order') {
-    $fields['hbk_description_need'] = BaseFieldDefinition::create('text_long')->setLabel(" Description need ")->setDisplayOptions('form', [])->setDisplayOptions('view',
-      [
-        'label' => 'hidden',
-        'type' => 'text_default',
-        'weight' => 0
-      ])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true);
     $fields['hbk_custom_profile'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Custom profile'))->setSetting('target_type', 'profile')->setSetting('handler', 'default')->setDisplayOptions(
       'form', [
         'type' => 'entity_reference_autocomplete',
@@ -55,14 +49,38 @@ function hbk_souscription_pfna_preprocess_region__content(&$vars) {
 
 /**
  * Implement hook_user_login
+ * Plus ne cessaire car on utilise les commandes.
  */
-function hbk_souscription_pfna_user_login() {
-  $request = \Drupal::request();
-  /**
-   *
-   * @var \Drupal\hbk_souscription_pfna\Services\ManageSouscription $manage_souscription
-   */
-  $manage_souscription = \Drupal::service("hbk_souscription_pfna.manage_souscription");
-  $manage_souscription->afterLogin($request);
+// function hbk_souscription_pfna_user_login() {
+// $request = \Drupal::request();
+// /**
+// *
+// * @var \Drupal\hbk_souscription_pfna\Services\ManageSouscription
+// $manage_souscription
+// */
+// $manage_souscription =
+// \Drupal::service("hbk_souscription_pfna.manage_souscription");
+// $manage_souscription->afterLogin($request);
+// }
+
+/**
+ *
+ * @param array $vars
+ */
+function hbk_souscription_pfna_preprocess_commerce_checkout_pane__login(array &$vars) {
+  $vars['elements']['link_register'] = [
+    '#theme' => 'hbk_souscription_pfna_register',
+    '#weight' => 10
+  ];
+}
+
+function hbk_souscription_pfna_theme() {
+  return [
+    'hbk_souscription_pfna_register' => [
+      'variables' => [
+        'uid' => NULL
+      ]
+    ]
+  ];
 }
 

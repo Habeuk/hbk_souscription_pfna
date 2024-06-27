@@ -66,14 +66,6 @@ class CustomInformation extends CheckoutPaneBase implements CheckoutPaneInterfac
    * @see \Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneInterface::buildPaneForm()
    */
   public function buildPaneForm(array $pane_form, FormStateInterface $form_state, array &$complete_form) {
-    $pane_form['description_need'] = [
-      "#type" => 'text_format',
-      '#format' => 'basic_html',
-      '#title' => $this->t('Describe your need'),
-      '#default_value' => $this->order->get('hbk_description_need')->value,
-      '#required' => true,
-      '#description' => $this->t("Please bring out the necessary characteristics and information.")
-    ];
     $customProfile = null;
     // On recupere le custom profile, s'il existe.
     $id_profile = $this->order->get("hbk_custom_profile")->target_id;
@@ -109,12 +101,13 @@ class CustomInformation extends CheckoutPaneBase implements CheckoutPaneInterfac
     
     $pane_form['custom_profile'] = [
       '#parents' => array_merge($pane_form['#parents'], [
-        'profile'
+        'custom_profile'
       ]),
       '#inline_form' => $inline_form
     ];
     $pane_form['custom_profile'] = $inline_form->buildInlineForm($pane_form['custom_profile'], $form_state);
-    
+    $pane_form['custom_profile']['#type'] = 'details';
+    $pane_form['custom_profile']['#title'] = 'Mettre à jour les informations personnelles';
     return $pane_form;
   }
   
@@ -123,10 +116,7 @@ class CustomInformation extends CheckoutPaneBase implements CheckoutPaneInterfac
    * {@inheritdoc}
    */
   public function validatePaneForm(array &$pane_form, FormStateInterface $form_state, array &$complete_form) {
-    $values = $form_state->getValue($pane_form['#parents']);
-    if (!empty($values['description_need']['value']) && \strlen($values['description_need']['value']) < 10) {
-      $form_state->setError($pane_form, $this->t('Your description is short'));
-    }
+    // $values = $form_state->getValue($pane_form['#parents']);
   }
   
   /**
@@ -144,8 +134,7 @@ class CustomInformation extends CheckoutPaneBase implements CheckoutPaneInterfac
      */
     $profile = $inline_form->getEntity();
     //
-    $values = $form_state->getValue($pane_form['#parents']);
-    $this->order->set('hbk_description_need', $values['description_need']['value']);
+    // $values = $form_state->getValue($pane_form['#parents']);
     $this->order->set('hbk_custom_profile', $profile->id());
   }
 }
